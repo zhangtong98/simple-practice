@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout= "http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>新建用户</title>
+    <style type="text/css">
+        body{
+            text-align: center;
+        }
+        table{
+            margin: auto;
+            width: 600px;
+        }
+        td{
+            text-align: left;
+        }
+        .input-sub{
+            width: 50px;
+            margin: auto;
+        }
+        div{
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 600px;
+            margin: auto;
+        }
+        .div-foot{
+            background-color: beige;
+            width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<form action="/save" th:action="@{/save}" method="post" th:object="${empinfo}" name="form1">
+    <input type="hidden" name="empId" th:value="*{empId}">
+    <div class="div-body">
+        <table>
+            <tr>
+                <td>员工编号<input type="text" name="empNo" th:value="*{empNo}"></td>
+                <td>员工姓名<input type="text" name="empName" th:value="*{empName}"></td>
+            </tr>
+            <tr>
+                <td>出生年月<input type="date" name="dateStr" th:value="*{dateStr}"></td>
+                <td>员工性别
+                    <label><input name="empSex" type="radio" value=1 th:field="*{empSex}" />男 </label>
+                    <label><input name="empSex" type="radio" value=0 th:field="*{empSex}" />女 </label>
+                </td>
+            </tr>
+            <tr>
+                <td>所属部门
+                    <select id="deptinfo" name="empDeptId" th:value="*{deptId}"}> <!--onchange="'selpost(\''+this.value+'\',\''+${deptposts}+'\')'"-->
+                        <option value="">请选择部门</option>
+                        <option th:each="dept:${depts}" th:value="${dept.deptId}" th:text="${dept.deptName}"></option>
+                    </select>
+                </td>
+                <!--<td>岗位
+                    <select name="deptpost" id="deptpost" th:value="deptpost.deptpostName">
+                        <option value="">请选择岗位</option>
+                        &lt;!&ndash;<option th:each="deptpost:${deptpostinfos}" th:value="${deptpost.deptpostId}" th:text="${deptpost.deptpostName}"></option>&ndash;&gt;
+                    </select>
+                </td>-->
+            </tr>
+            <tr>
+                <td colspan="2">
+                    家庭地址<input type="text" name="empAddress" th:value="*{empAddress}"></td>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="div-foot">
+
+        <input class="input-sub" type="submit" value="提交">
+    </div>
+
+</form>
+</body>
+</html>
+<!--
+<script type="text/javascript">
+
+    function selpost(deptId,deptposts){
+        var deptpost=document.getElementById("deptpost");
+        deptpost.options.length=0;
+        deptpost.appendChild("<option value=''>请选择岗位</option>");
+        for(i=0;i<deptposts.length;i++) {
+            if(deptId == deptposts[i].deptId){
+                var option = document.createElement("option");
+                option.text=deptposts[i].deptpostName;
+                option.value=deptposts[i].deptpostId;
+                deptpost.appendChild(option);
+            }
+        }
+    }
+-->
+
+</script>
+

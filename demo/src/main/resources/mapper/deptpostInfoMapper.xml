@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.DeptpostInfoDao">
+
+    <resultMap type="com.example.demo.entities.DeptpostInfoEntity" id="deptpostMap">
+        <result property="deptpostId" column="deptpost_id"/>
+        <result property="deptpostName" column="deptpost_name"/>
+        <result property="deptId" column="dept_id"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="deptpostMap">
+        SELECT
+            `deptpost_id`,
+            `deptpost_name`,
+            `dept_id`
+        FROM
+            deptpost_info
+    </select>
+
+</mapper>

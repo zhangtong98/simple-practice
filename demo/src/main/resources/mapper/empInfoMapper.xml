@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.EmpInfoDao">
+
+    <resultMap type="com.example.demo.entities.EmpInfoEntity" id="empInfoMap">
+        <result property="empId" column="emp_id"/>
+        <result property="empNo" column="emp_no"/>
+        <result property="empSex" column="emp_sex"/>
+        <result property="empName" column="emp_name"/>
+        <result property="empDate" column="emp_date"/>
+        <result property="empDeptId" column="emp_dept_id"/>
+        <result property="empDeptpostId" column="emp_deptpost_id"/>
+        <result property="empAddress" column="emp_address"/>
+        <result property="deptName" column="dept_name"/>
+    </resultMap>
+
+
+    <insert id="save" parameterType="com.example.demo.entities.EmpInfoEntity">
+        INSERT INTO
+        emp_info(
+            `emp_id`,
+            `emp_no`,
+            `emp_sex`,
+            `emp_name`,
+            `emp_date`,
+            `emp_dept_id`,
+            `emp_deptpost_id`,
+            `emp_address`
+        )
+        VALUES(
+            #{empId},
+            #{empNo},
+            #{empSex},
+            #{empName},
+            #{empDate},
+            #{empDeptId},
+            #{empDeptpostId},
+            #{empAddress}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM emp_info WHERE emp_id=#{empId}
+    </delete>
+
+    <update id="update" parameterType="com.example.demo.entities.EmpInfoEntity">
+        update emp_info
+		set
+		    `emp_no`=#{empNo},
+            `emp_name`=#{empName},
+            `emp_sex`=#{empSex},
+            `emp_date`=#{empDate},
+            `emp_dept_id`=#{empDeptId},
+            `emp_deptpost_id`=#{empDeptpostId},
+            `emp_address`=#{empAddress}
+		where
+		emp_id=#{empId}
+    </update>
+
+    <select id="selectAll" resultMap="empInfoMap">
+        SELECT
+            e.`emp_id`,
+            e.`emp_no`,
+            e.`emp_sex`,
+            e.`emp_name`,
+            e.`emp_date`,
+            e.`emp_dept_id`,
+            e.`emp_deptpost_id`,
+            e.`emp_address`,
+            d.`dept_name`
+        FROM emp_info e
+        JOIN dept_info d
+        ON e.emp_dept_id = d.dept_id
+    </select>
+
+    <select id="selectById" resultMap="empInfoMap">
+        SELECT
+            e.`emp_id`,
+            e.`emp_no`,
+            e.`emp_sex`,
+            e.`emp_name`,
+            e.`emp_date`,
+            e.`emp_dept_id`,
+            e.`emp_deptpost_id`,
+            e.`emp_address`,
+            d.`dept_name`
+        FROM emp_info e
+        JOIN dept_info d
+        ON e.emp_dept_id = d.dept_id
+        WHERE `emp_id`=#{empId}
+    </select>
+
+</mapper>
